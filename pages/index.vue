@@ -7,7 +7,20 @@
             <input type="text" v-model="text">
             <button type="submit" @click.prevent="calculate">Посчитать</button>
         </form>
-
+        <table v-if="results">
+            <thead>
+                <tr>
+                    <th>Символ</th>
+                    <th>Код</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="result in results">
+                    <td>{{ result.symbol }}</td>
+                    <td>{{ result.code }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 

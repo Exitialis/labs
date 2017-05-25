@@ -31,9 +31,6 @@ export default function run (str) {
     graph.linkLeftParent(parent1, child)
     graph.linkRightParent(parent2, child)
 
-    console.log(parent1, child)
-    console.log(parent2, child)
-
     // Добавляем скрещенный символ в очередь
     queue.push({
       symbol: resultSymbol,
@@ -45,6 +42,7 @@ export default function run (str) {
   }
 
   graph.render()
+
   iterateTree(graph.getGraph())
 
   return result
@@ -52,26 +50,22 @@ export default function run (str) {
 
 const iterateTree = (graph) => {
   let firstNode = graph.pop()
-  console.log(firstNode)
 
   calculateNode('', firstNode)
 }
 
 const calculateNode = (value, node) => {
-  if (node.leftParent === null) {
+  if (!node.leftParent || !node.rightParent) {
+    console.log(value)
     result.push({
       symbol: node.name,
       code: value
     })
+  } else {
+    let leftParent = node.leftParent
+    let rightParent = node.rightParent
 
-    return
+    calculateNode(value + '0', leftParent)
+    calculateNode(value + '1', rightParent)
   }
-
-  let leftParent = node.leftParent
-  let rightParent = node.rightParent
-
-  calculateNode(value += '0', leftParent)
-  calculateNode(value += '1', rightParent)
-
-  console.log(value)
 }

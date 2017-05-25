@@ -7,6 +7,11 @@ function Graph () {
 }
 
 Graph.prototype.addNode = function (name) {
+  for (let item of this.graph) {
+    if (item.name === name) {
+      return item
+    }
+  }
   let node = new Node(name)
   this.viva.addNode(name, {'name': name})
 
@@ -14,31 +19,31 @@ Graph.prototype.addNode = function (name) {
   return node
 }
 
-Graph.prototype.linkLeftParent = function (node1, node2) {
-  this.viva.addLink(node1.name, node2.name)
-  this.graph.forEach(function (node, i) {
-    if (node.name === node1) {
-      node1 = node
-    } else if (node.name === node2) {
-      node2 = node
+Graph.prototype.linkLeftParent = function (parent, child) {
+  this.viva.addLink(parent.name, child.name)
+  this.graph.forEach(node => {
+    if (node.name === parent.name) {
+      parent = node
+    } else if (node.name === child.name) {
+      child = node
     }
   })
 
-  node2.setLeftParent(node1)
+  child.setLeftParent(parent)
   return this
 }
 
-Graph.prototype.linkRightParent = function (node1, node2) {
-  this.viva.addLink(node1.name, node2.name)
-  this.graph.forEach(function (node, i) {
-    if (node.name === node1) {
-      node1 = node
-    } else if (node.name === node2) {
-      node2 = node
+Graph.prototype.linkRightParent = function (parent, child) {
+  this.viva.addLink(parent.name, child.name)
+  this.graph.forEach(node => {
+    if (node.name === parent.name) {
+      parent = node
+    } else if (node.name === child.name) {
+      child = node
     }
   })
 
-  node2.setRightParent(node1)
+  child.setRightParent(parent)
   return this
 }
 

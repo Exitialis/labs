@@ -13,4 +13,12 @@ Node.prototype.setRightParent = function (parent) {
   this.rightParent = parent
 }
 
+Node.prototype.getLeftParent = () => {
+  return this.leftParent
+}
+
+Node.prototype.getRightParent = () => {
+  return this.rightParent
+}
+
 export default Node
